@@ -17,19 +17,49 @@ let app_cfg = {
     title: 'MicrogridAM.com Contact Form',
     company: 'Microgrid Asset Management',
   },
+  'atlas': {
+    sender: 'info@eight9.net',
+    title: 'Atlas Integrated Systems Contact Form',
+    company: 'Atlas Integrated Systems',
+  },
+  'scada': {
+    sender: 'info@eight9.net',
+    title: 'SCADA Solutions Contact Form',
+    company: 'SCADA Solutions',
+  },
 }
 
 export const handler = async(event) => {
   // console.log("ENVIRONMENT VARIABLES\n" + JSON.stringify(process.env, null, 2));
   // console.info("EVENT\n" + JSON.stringify(event, null, 2));
-  let msg = JSON.parse(event.body);
+  let msg = {}
+  if (event.body) msg = JSON.parse(event.body);
+  console.info("BODY\n" + JSON.stringify(msg, null, 2));
   let cfg = (msg.app_key && app_cfg[msg.app_key]) ? app_cfg[msg.app_key] : false;
   if (!cfg) throw new Error("Invalid Request, invalid 'app_key'");
-  if (msg.honeypot && msg.honeypot.length > 0) throw new Error("Invalid Request: HP");
+  if (!msg.hasOwnProperty('honeypot') || (msg.honeypot && msg.honeypot.length > 0)) {
+    console.error("Invalid Request: HP");
+    return;
+  }
 
-  let extra_fields = '';
-  if (msg.address) {
-    extra_fields = extra_fields + `<p><b>Address:</b> ${msg.address}</p>`;
+  // First + Last Name
+  if (msg.first_name && msg.last_name) {
+    msg.name = msg.first_name + ' ' + msg.last_name;
+  }
+
+  // Extra Fields
+  let extra_keys = ['address', 'company', 'property_type'];
+  let extra_fields = {};
+
+  extra_keys.forEach((key) => {
+    if (msg[key] && msg[key].length > 0) {
+      extra_fields[key] = msg[key];
+    }
+  });
+
+  let extra_fields_str = '';
+  for (const [key, value] of Object.entries(extra_fields)) {
+    extra_fields_str += `<p><b>${capitalizeFirstLetter(key)}:</b> ${value}</p>`;;
   }
 
   let body = `
@@ -45,7 +75,7 @@ export const handler = async(event) => {
       margin-top: 0;
     }
     .footer-wrap {
-      width: 100%; clear: both; color: #999; margin: 20px 0; padding: 20px;
+      width: 100%; clear: both; color: #999; margin: 100px 0; padding: 20px;
     }
   </style>
   <body class="body-wrap">
@@ -54,12 +84,12 @@ export const handler = async(event) => {
       <p><b>Name:</b> ${msg.name}</p>
       <p><b>E-Mail:</b> <a href="mailto:${msg.email}">${msg.email}</a></p>
       <p><b>Phone:</b> ${msg.phone}</p>
-      ${extra_fields}
       <p><b>Subject:</b> ${msg.subject}</p>
+      ${extra_fields_str}
       <p><b>Message:</b> ${msg.message}</p>
     </div>
     <div class="footer-wrap">
-      ${cfg.company}
+      From ${cfg.company} Website Contact Form
     </div>
   </body>
 </html>
@@ -96,5 +126,15 @@ export const handler = async(event) => {
   }
   finally {
     // finally.
+  }
+
+
+  function capitalizeFirstLetter(str) {
+    if (str.length === 0) {
+      return str;
+    }
+    const firstLetter = str.charAt(0).toUpperCase();
+    const restOfString = str.slice(1);
+    return firstLetter + restOfString;
   }
 };

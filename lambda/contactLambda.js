@@ -48,7 +48,16 @@ export const handler = async(event) => {
   }
 
   // Extra Fields
-  let extra_keys = ['address', 'company', 'property_type'];
+  let extra_keys = [
+    'address',
+    'company',
+    'title',
+    'property_type',
+    'communications',
+    'other_communications',
+    'needs',
+    'timeframe',
+  ];
   let extra_fields = {};
 
   extra_keys.forEach((key) => {
@@ -59,7 +68,7 @@ export const handler = async(event) => {
 
   let extra_fields_str = '';
   for (const [key, value] of Object.entries(extra_fields)) {
-    extra_fields_str += `<p><b>${capitalizeFirstLetter(key)}:</b> ${value}</p>`;;
+    extra_fields_str += `<p><b>${capitalizeFirstLetters(key)}:</b> ${value}</p>`;;
   }
 
   let body = `
@@ -129,12 +138,12 @@ export const handler = async(event) => {
   }
 
 
-  function capitalizeFirstLetter(str) {
+  function capitalizeFirstLetters(str) {
     if (str.length === 0) {
       return str;
     }
-    const firstLetter = str.charAt(0).toUpperCase();
-    const restOfString = str.slice(1);
-    return firstLetter + restOfString;
+    return str
+      .replace(/_/g, ' ')
+      .replace(/\b\w/g, (char) => char.toUpperCase());
   }
 };

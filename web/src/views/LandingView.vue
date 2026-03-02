@@ -99,16 +99,16 @@
 
 <template>
 
-  <div data-bs-spy="scroll" data-bs-target="#site-navbar" data-bs-root-margin="0px 0px -15%" data-bs-smooth-scroll="true" class="pb-5">
+  <div class="pb-12">
 
-    <section id="section-home" class="container-fluid hero-content">
+    <section id="section-home" class="w-full hero-content">
       <div class="text-center">
         <h1>Quality Business Solutions</h1>
       </div>
     </section>
 
-    <section id="section-services" class="container-fluid services-content mt-5 mb-5 pb-5">
-      <div class="row justify-content-center">
+    <section id="section-services" class="w-full services-content mt-12 mb-12 pb-12">
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6">
         <Landing-box v-for="cat in cats" :cat="cat" />
       </div>
     </section>

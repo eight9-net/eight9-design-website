@@ -23,27 +23,27 @@
   }
 </script>
 <template>
-  <footer class="footer fixed-bottom bg-light py-3">
+  <footer class="fixed bottom-0 left-0 right-0 w-full bg-gray-100 py-3 z-40">
     <!-- footer -->
-    <div class="container">
-      <div class="row">
+    <div class="container mx-auto px-4">
+      <div class="flex flex-wrap">
 
-        <div class="col-12 col-sm">
+        <div class="w-full sm:flex-1">
           <div class="nav-item"><address class="m-0"><font-awesome-icon :icon="['fas', 'location-dot']" /> {{ site.address1 }} {{ site.address2 }}</address></div>
         </div>
-        <div class="col-12 col-sm-auto text-right">
-          <div class="nav-item"><a class="nav-link" :href="'mailto:' + site.email + '?subject=Website Inquiry'"><font-awesome-icon :icon="['fas', 'envelope']" size="lg" /> {{ site.email }}</a></div>
+        <div class="w-full sm:w-auto text-right">
+          <div class="nav-item"><a class="misc-link" :href="'mailto:' + site.email + '?subject=Website Inquiry'"><font-awesome-icon :icon="['fas', 'envelope']" /> {{ site.email }}</a></div>
         </div>
       </div>
     </div>
 
     <div class="footer-bottom">
-      <div class="container">
-        <div class="row">
-          <div class="col-12 col-sm">
+      <div class="container mx-auto px-4">
+        <div class="flex flex-wrap">
+          <div class="w-full sm:flex-1">
             <div class="nav-item">Copyright &copy; 2023-{{ year }} <span class="text-standout">Eight9 Design Network INC</span></div>
           </div>
-          <div class="col-12 col-sm-auto text-right">
+          <div class="w-full sm:w-auto text-right">
             <div class="nav-item">Developed by <a class="misc-link" href="https://eight9.net/">Eight9 Design Network</a></div>
           </div>
         </div>

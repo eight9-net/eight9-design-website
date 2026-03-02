@@ -11,6 +11,11 @@
     components: {
       NavLinks,
     },
+    data() {
+      return {
+        isMenuOpen: false,
+      }
+    },
     computed: {
       ...mapGetters([
         'get_site_info',
@@ -24,18 +29,29 @@
 <template>
   <header class="">
 
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top sitehead">
-      <div class="container-fluid">
-        <a class="navbar-brand sitehead-brand" href="#">Eight9 Design Network</a>
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-gray-900 sitehead">
+      <div class="px-4 w-full">
+        <div class="flex items-center justify-between h-14">
+          <a class="text-white font-semibold text-lg sitehead-brand" href="#">Eight9 Design Network</a>
 
-        <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu" aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle Navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
+          <button
+            class="md:hidden text-gray-300 hover:text-white p-2"
+            type="button"
+            @click="isMenuOpen = !isMenuOpen"
+            aria-label="Toggle Navigation"
+          >
+            <font-awesome-icon :icon="['fas', isMenuOpen ? 'xmark' : 'bars']" />
+          </button>
 
-        <div class="collapse navbar-collapse justify-content-center nav-sitehead" id="navbarMenu">
-          <NavLinks />
+          <div class="hidden md:flex items-center justify-center nav-sitehead">
+            <NavLinks />
+          </div>
         </div>
 
+        <!-- Mobile menu -->
+        <div v-show="isMenuOpen" class="md:hidden pb-3 nav-sitehead">
+          <NavLinks />
+        </div>
       </div>
     </nav>
 

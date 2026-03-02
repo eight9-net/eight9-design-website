@@ -27,15 +27,15 @@
 </script>
 <template>
 
-  <ul id="site-navbar" class="navbar-nav" :class="css_class">
+  <ul id="site-navbar" class="flex flex-col md:flex-row list-none" :class="css_class">
     <li class="nav-item">
-      <router-link class="nav-link text-nowrap" to="#section-home" ><font-awesome-icon :icon="['fas', 'home']" /> Home</router-link>
+      <router-link class="nav-link whitespace-nowrap" to="#section-home" ><font-awesome-icon :icon="['fas', 'house']" /> Home</router-link>
     </li>
     <li class="nav-item">
-      <router-link class="nav-link text-nowrap" to="#section-services"><font-awesome-icon :icon="['fas', 'camera-retro']" /> Services</router-link>
+      <router-link class="nav-link whitespace-nowrap" to="#section-services"><font-awesome-icon :icon="['fas', 'camera-retro']" /> Services</router-link>
     </li>
     <li class="nav-item">
-      <router-link class="nav-link text-nowrap" to="#section-contact"><font-awesome-icon :icon="['fas', 'envelope']" /> Contact</router-link>
+      <router-link class="nav-link whitespace-nowrap" to="#section-contact"><font-awesome-icon :icon="['fas', 'envelope']" /> Contact</router-link>
     </li>
   </ul>
 

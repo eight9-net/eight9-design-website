@@ -12,7 +12,7 @@ import SiteFooter from './components/SiteFooter.vue'
 <template>
   <div class="" id="top">
     <SiteHeader />
-    <main role="main" class="container site-content">
+    <main role="main" class="container mx-auto px-4 site-content">
       <router-view></router-view>
     </main>
     <SiteFooter />

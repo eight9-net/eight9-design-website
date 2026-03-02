@@ -4,9 +4,7 @@ import router from './router'
 import store from './store.js'
 
 
-/* Bootstrap */
-import "bootstrap"
-import './assets/custom.scss'
+import './assets/main.scss'
 
 
 /* Font Awesome */

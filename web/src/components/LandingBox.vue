@@ -38,11 +38,11 @@
   }
 </script>
 <template>
-  <div class="col-12 col-sm-6 col-md-4 col-xl-3 mt-3 mb-3 landing-box">
-    <div class="p-3 border border-secondary rounded-4 text-center icon-box ">
+  <div class="my-3 landing-box">
+    <div class="p-4 border border-gray-400 rounded-2xl text-center icon-box">
       <div class="center-circle-icon"><font-awesome-icon :icon="['fas', cat.icon]" /></div>
       <h4 class="title">{{ cat.title }}</h4>
-      <div class="description text-start">
+      <div class="description text-left">
         <div v-for="item in show_items"><font-awesome-icon :icon="['fas', 'right-long']" />{{ item }}</div>
         <div v-if="!show_more && total_items > 5"><a href="javascript://" @click="toggle_show">Show More</a></div>
         <div v-else-if="show_more && total_items > 5"><a href="javascript://" @click="toggle_show">Show Less</a></div>

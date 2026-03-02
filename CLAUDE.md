@@ -26,15 +26,20 @@ There are no tests or linting scripts configured.
 ### Web (`web/`)
 
 Vue 3 + Vite SPA using the Options API (not Composition API). Key stack:
-- **Vuex 4** for state (`src/store.js`) — holds site info, contact form actions, and a stubbed product loader
-- **Vue Router 4** (`src/router/index.js`) — single route (`/`) pointing to `LandingView`
-- **Bootstrap 5** — imported via SCSS in `src/assets/custom.scss`, with `$primary: #126f82` overriding the default theme color
-- **Font Awesome** — icons registered globally in `src/main.js` and used as `<font-awesome-icon>`
+- **Tailwind CSS v4** + **DaisyUI v5** — configured via `@tailwindcss/vite` plugin in `vite.config.js`; CSS entry point is `src/assets/main.scss` which contains `@import "tailwindcss"`, `@plugin "daisyui"`, and the `@theme` block
+- **Brand colour** — `--color-primary: #126f82` defined in `@theme` in `main.scss`; overrides DaisyUI's default primary so all `btn-primary`, `text-primary`, etc. use the teal brand colour
+- **Vuex 4** for state (`src/store.js`) — holds site info and contact form actions
+- **Vue Router 5** (`src/router/index.js`) — single route (`/`) pointing to `LandingView`
+- **Font Awesome v7** — icons registered globally in `src/main.js` and used as `<font-awesome-icon :icon="['fas', 'icon-name']" />`
 - **Axios** — wrapped in `src/http.js`, which handles error logging and exports named API methods
 
 The app layout is `App.vue` → `SiteHeader` + `<router-view>` + `SiteFooter`. The single view is `LandingView`, which composes `LandingBox` (service cards) and `ContactSection` (contact form).
 
-The `@` alias resolves to `src/`, and `~bootstrap` resolves to `node_modules/bootstrap` (for SCSS imports).
+The `@` alias resolves to `src/`.
+
+#### Mobile nav
+
+Bootstrap's JS-based collapse was replaced with a Vue `isMenuOpen` boolean in `SiteHeader.vue`. The mobile menu is toggled via `@click="isMenuOpen = !isMenuOpen"` and shown with `v-show="isMenuOpen"`.
 
 ### Lambda (`lambda/`)
 

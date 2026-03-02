@@ -2,7 +2,6 @@
 
 </style>
 <script>
-  // import { mapGetters } from 'vuex'
   export default {
     name: 'nav-links',
     props: {

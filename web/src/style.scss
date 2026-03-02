@@ -1,0 +1,37 @@
+@use "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+Georgian:wght@100..900&display=swap');
+@plugin "daisyui" {
+  themes: business --default;
+  root: ":root";
+  logs: true;
+}
+@plugin "daisyui/theme" {
+  name: "business";
+  default: true;
+  --color-primary: oklch(27.03% 0.0714 252.67);
+  // --color-secondary: oklch(58% 0.158 241.966);
+  --color-secondary: oklch(0.4596 0.1046 251.52);
+}
+
+
+html {
+  scroll-behavior: smooth;
+}
+
+.fixed-bg {
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: fixed;
+  background-size: cover;
+}
+
+.headline {
+  font-family: 'Noto Serif Georgian', serif;
+  line-height: 1.5em;
+}
+
+.scroll-target {
+  position: absolute;
+  margin-top: -132px;
+  z-index: -1;
+}

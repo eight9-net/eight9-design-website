@@ -1,131 +1,28 @@
-<style lang="scss">
-.contact-content {
-  background-color: rgba(255, 255, 255, .25);
-}
-</style>
+<script setup>
+  import { ref } from 'vue';
+  import { useContactStore } from '../stores/contact';
 
-<script>
-import { mapGetters, mapActions } from 'vuex'
-export default {
-  name: "contact-section",
-  components: {  },
-  data() {
-    return {
-      status: 'pending',
-      form: {
-        dirty: false,
-        is_sent: false,
-        is_disabled: false,
-        name_valid: true,
-        email_valid: true,
-        subject_valid: true,
-        message_valid: true,
-        submit_valid: true,
-        replyTo: "@",
-        honeypot: "",
-        name: "",
-        email: "",
-        phone: "",
-        address: "",
-        subject: "",
-        message: "",
-      }
-    };
-  },
-  computed: {
-      ...mapGetters([
-        'get_site_info',
-      ]),
-      site() {
-        return this.get_site_info;
-      },
-    },
-  methods: {
-    ...mapActions([
-        'do_submit_contact',
-      ]),
-    send_message() {
-      let $this = this;
-      let form = this.form;
-      if (!this.validate_form(true)) {
-        this.status = 'missing';
-        return;
-      }
-      form.is_disabled = true;
-      this.status = 'sending';
-      if (form.honeypot.length > 0) {
-        // Ignore Honeypots
-        $this.status = 'success';
-      } else {
-        let request = JSON.stringify({app_key: 'eight9', name: form.name, email: form.email, subject: form.subject, phone: form.phone, message: form.message});
-        this.do_submit_contact(request)
-          .then(function(res) {
-            $this.status = 'success';
-          }).finally(function() {
-          }).catch(function(err) {
-            $this.status = 'error';
-            form.is_disabled = false;
-          });
-        }
-    },
-    validate_form(whole_form = false) {
-      if (whole_form) console.log('Validate Whole Form');
-      let form = this.form;
-      let name = form.name;
-      if (name || whole_form) {
-        form.dirty = true;
-        form.name_valid = false;
-        if (name.length >= 3) {
-          form.name_valid = true;
-        }
-      }
-      let email = form.email;
-      if (email || whole_form) {
-        form.dirty = true;
-        form.email_valid = false;
-        if (email.length >= 6 && email.includes("@") && email.includes(".")) {
-          this.form.email_valid = true;
-        }
-      }
-      let subject = form.subject;
-      if (subject || whole_form) {
-        form.dirty = true;
-        form.subject_valid = false;
-        if (subject.length >= 5) {
-          form.subject_valid = true;
-        }
-      }
-      let message = form.message;
-      if (message || whole_form) {
-        form.dirty = true;
-        form.message_valid = false;
-        if (message.length >= 20) {
-          form.message_valid = true;
-        }
-      }
-      if (form.dirty && whole_form && form.message_valid && form.name_valid && form.subject_valid) return true;
-      return false;
-    },
-  },
-  mounted() {
+  const isDisabledRef = ref(false);
+  const messageSentRef = ref(false);
+  const messageErrorRef = ref(false);
+  const contactStore = useContactStore();
+  const form = ref(contactStore.form);
 
-  },
-  watch: {
-    "form.name": function (new_val) {
-      this.validate_form();
-    },
-    "form.email": function (new_val) {
-      this.validate_form();
-    },
-    "form.subject": function (new_val) {
-      this.validate_form();
-    },
-    "form.message": function (new_val) {
-      this.validate_form();
-    },
-  },
-}
-
+  function sendContactForm(data) {
+    if (isDisabledRef.value) {
+      console.error('Form is disabled...');
+      // return;
+    }
+    messageErrorRef.value = false;
+    isDisabledRef.value = true;
+    form.value.subject = form.value.subject + ' ' + form.value.company + ' (' + form.value.name + ')';
+    contactStore.doSendContactForm(form.value).then((success) => {
+      messageSentRef.value = success;
+    }).catch(() => {
+      isDisabledRef.value = false;
+      messageErrorRef.value = true;
+    });
+  }
 </script>
 
 <template>
@@ -134,13 +31,12 @@ export default {
       <div class="text-center">
         <h2>Contact</h2>
         <p>Want more information? Not sure what your business needs? Have some ideas already and not sure where to start?</p>
-        <p>We would love to talk about how we can help your business. Send us a message and start a conversation. Use the form below or E-Mail us at <a :href="'mailto:' + site.info + '?subject=Website%20Inquiry'">{{ site.email }}</a></p>
+        <p>We would love to talk about how we can help your business. Send us a message and start a conversation. Use the form below or E-Mail us at <a :href="'mailto:' + siteProperties.email + '?subject=Website%20Inquiry'">{{ siteProperties.email }}</a></p>
       </div>
 
 
       <!-- contact form -->
-      <form action="javascript://" id="contact_form" class="contact-form mb-4" :class="{'hidden': form.is_sent, 'opacity-50 pointer-events-none': form.is_disabled}" @submit.prevent="send_message">
-        <input type="hidden" name="accessKey" :value="site.static_forms_key" />
+      <form @submit.prevent="sendContactForm" id="contact_form" class="contact-form mb-4" :class="{'hidden': form.is_sent, 'opacity-50 pointer-events-none': form.is_disabled}">
         <input type="hidden" name="replyTo" :value="form.replyTo" />
         <input type="text" name="honeypot" class="sr-only" v-model="form.honeypot" />
 
@@ -178,28 +74,18 @@ export default {
         </div>
       </form><!-- end contact form -->
 
-      <div>
-        <div class="alert alert-success" role="alert" v-if="status == 'success'">
-          <h4 class="alert-heading">Message Sent</h4>
-          <p>Thanks for sending your message! We'll get back to you shortly.</p>
-        </div>
-        <div class="alert alert-danger" role="alert" v-if="status == 'error'">
-          <h4 class="alert-heading">Error Sending Message</h4>
-          <p>There was a problem sending your message. Please try again.</p>
-        </div>
-        <div class="alert alert-danger" role="alert" v-if="status == 'missing'">
-          <h4 class="alert-heading">Form Incomplete</h4>
-          <p>Please complete all the fields in the form before sending.</p>
-        </div>
+      <div v-if="messageSentRef" class="p-4 my-4 text-green-800 bg-green-200 border border-green-400 rounded">
+        <p>Thank you for contacting us! We have received your message and will get back to you shortly.</p>
       </div>
-
+      <div v-if="messageErrorRef" class="p-4 my-4 text-red-800 bg-red-200 border border-red-400 rounded">
+        <p>There was an error sending your message. Please try again or email us directly.</p>
+      </div>
 
       <!-- Addresses -->
       <div class="mt-6 text-center">
         <h3><font-awesome-icon :icon="['fas', 'location-dot']"></font-awesome-icon> Mailing Address</h3>
         <address>
-            {{ site.address1 }}<br />
-            {{ site.address2 }}<br />
+            {{ siteProperties.address }}<br />
         </address>
       </div><!-- end addresses section -->
 

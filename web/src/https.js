@@ -1,4 +1,3 @@
-// import store from '../store';
 import axios from 'axios';
 
 axios.interceptors.response.use(undefined, function (error) {
@@ -6,13 +5,6 @@ axios.interceptors.response.use(undefined, function (error) {
     // Request made and server responded
     console.error('Axios HTTP ' + error.response.status, error.message);
     console.error('Error Data', error.response.data);
-    // if (error.response.status == 401) {
-    //   if (window.location.hash != '/login') {
-    //     window.location.href = '/logout';
-    //   }
-    // } else if (error.response.status == 419) {
-    //   window.location.reload();
-    // }
     return error.response;
   } else if (error.request) {
      // The request was made but no response was received
@@ -25,18 +17,15 @@ axios.interceptors.response.use(undefined, function (error) {
 });
 
 export default {
-  async send_contact_form(request) {
+  async sendContactForm(request) {
     let options = {
       headers: {
         "Content-Type": "application/json"
       }
     };
+    request.app_key = 'eight9';
     let response = await axios.post(`https://nmesql59ql.execute-api.us-west-1.amazonaws.com/contactLambda`, request, options);
     return response;
   },
-  // async fetch_products(request) {
-  //   const { data } = await axios.get(`/api/fetch-products`, request);
-  //   return data;
-  // },
 
 }

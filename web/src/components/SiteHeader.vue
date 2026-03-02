@@ -1,60 +1,53 @@
-<style>
-  .nav-item {
-    margin: 0.2em .5em;
-  }
-</style>
-<script>
-  import NavLinks from '../components/NavLinks.vue'
-  import { mapGetters } from 'vuex'
-  export default {
-    name: 'site-header',
-    components: {
-      NavLinks,
-    },
-    data() {
-      return {
-        isMenuOpen: false,
-      }
-    },
-    computed: {
-      ...mapGetters([
-        'get_site_info',
-      ]),
-      site() {
-        return this.get_site_info;
-      },
-    },
-  }
+<script setup>
+  import { ref } from 'vue';
+  import { useGetImageUrl } from '../composables/utils';
+  import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+  import NavigationMenu from './NavigationMenu.vue';
+  const isOpen = ref(false);
+  const toggleMobileNav = () => {
+    isOpen.value = !isOpen.value;
+  };
+  const handleCloseMenu = () => {
+    isOpen.value = false;
+    mobileMenuElement.value.removeAttribute('open');
+  };
+  const mobileMenuElement = ref(null);
 </script>
+
 <template>
-  <header class="">
-
-    <nav class="fixed top-0 left-0 right-0 z-50 bg-gray-900 sitehead">
-      <div class="px-4 w-full">
-        <div class="flex items-center justify-between h-14">
-          <a class="text-white font-semibold text-lg sitehead-brand" href="#">Eight9 Design Network</a>
-
-          <button
-            class="md:hidden text-gray-300 hover:text-white p-2"
-            type="button"
-            @click="isMenuOpen = !isMenuOpen"
-            aria-label="Toggle Navigation"
-          >
-            <font-awesome-icon :icon="['fas', isMenuOpen ? 'xmark' : 'bars']" />
-          </button>
-
-          <div class="hidden md:flex items-center justify-center nav-sitehead">
-            <NavLinks />
-          </div>
-        </div>
-
-        <!-- Mobile menu -->
-        <div v-show="isMenuOpen" class="md:hidden pb-3 nav-sitehead">
-          <NavLinks />
-        </div>
+  <header class="sticky top-0 z-50 header">
+    <div class="bg-gray-400 shadow-sm text-primary navbar">
+      <div class="navbar-start flex-2">
+        <details ref="mobileMenuElement" class="dropdown">
+          <summary class="btn btn-lg btn-ghost lg:hidden" @click="toggleMobileNav">
+            <font-awesome-icon :icon="['fa', 'bars']" size="lg" v-if="!isOpen" />
+            <font-awesome-icon :icon="['fa', 'times']" size="lg" v-if="isOpen" />
+          </summary>
+          <navigation-menu
+            classes="menu menu-compact text-lg dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-100 text-black font-medium"
+            :hover="false"
+            :border="false"
+            @emitCloseMenu="handleCloseMenu"
+            textSize="text-lg"
+          />
+        </details>
+        <router-link :to="{ name: 'home' }">
+          <img class="max-w-[200px] lg:max-w-[300px] mx-auto" :src="useGetImageUrl('eight9-design-network-logo.svg')" :alt="siteProperties.companyName" />
+        </router-link>
       </div>
-    </nav>
 
+      <div class="flex-auto hidden text-3xl navbar-center lg:flex">
+        <navigation-menu />
+      </div>
+
+      <div class="flex-1 ml-5 navbar-end">
+        <ContactButton />
+      </div>
+    </div>
   </header>
+</template>
 
-  </template>
+<style scoped>
+
+</style>
+

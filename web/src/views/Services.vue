@@ -3,7 +3,6 @@
 </style>
 
 <script>
-  import { mapActions, mapGetters } from 'vuex'
   export default {
     name: 'contact-view',
     components: {
@@ -19,14 +18,6 @@
         status: 'pending',
         disabled: false,
       }
-    },
-    computed: {
-      ...mapGetters([
-        'get_site_info',
-      ]),
-      site() {
-        return this.get_site_info;
-      },
     },
     methods: {
       ...mapActions([
@@ -71,7 +62,7 @@
           <div class="w-full md:w-1/4 aligncenter">
             <div class="service_block">
               <span class="icon bg-white"><i class="icon"><font-awesome-icon :icon="['fas', 'phone']" /></i></span>
-              <h5>Phone & Fax </h5>
+              <h5>Phone</h5>
               <span class="text-sm">Phone: <a :href="'tel:' + site.phone" class="ci-link">{{ site.phone }}</a></span>
               <!--<span class="text-sm">Fax : {{ fax }}</span>-->
             </div>

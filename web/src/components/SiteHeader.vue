@@ -32,7 +32,7 @@
           />
         </details>
         <router-link :to="{ name: 'home' }">
-          <img class="max-w-[200px] lg:max-w-[300px] mx-auto" :src="useGetImageUrl('eight9-design-network-logo.svg')" :alt="siteProperties.companyName" />
+          <img class="max-w-50 lg:max-w-75 mx-auto" :src="useGetImageUrl('eight9-design-network-logo.svg')" :alt="siteProperties.companyName" />
         </router-link>
       </div>
 
@@ -40,7 +40,7 @@
         <navigation-menu />
       </div>
 
-      <div class="flex-1 ml-5 navbar-end">
+      <div class="flex-1 ml-5 navbar-end mr-3">
         <ContactButton />
       </div>
     </div>

@@ -128,6 +128,8 @@
       name="services"
       title="Custom Web Design & Development Services"
       containerClasses="container mx-auto px-5 py-25"
+      sectionClasses="mt-10 pt-10"
+      image=""
     >
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6">
         <LandingBox v-for="cat in cats" :cat="cat" />

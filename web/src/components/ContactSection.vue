@@ -30,6 +30,10 @@ import ContentFullSection from './ContentFullSection.vue';
     id="ContactUs"
     name="contact-us"
     title="Contact Us"
+    image="bg2.jpg"
+    sectionClasses="mb-10"
+    backdropClasses="bg-gray-800/80 rounded-lg"
+    :button="false"
   >
     <div>
       

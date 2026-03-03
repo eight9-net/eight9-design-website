@@ -7,6 +7,7 @@
   import ContentLeftSection from '../components/ContentLeftSection.vue';
   import LandingBox from '../components/LandingBox.vue';
   import ContactSection from '../components/ContactSection.vue';
+  import Gallery from '../components/Gallery.vue';
   export default {
     name: 'landing-view',
     components: {
@@ -15,6 +16,7 @@
       ContentLeftSection,
       LandingBox,
       ContactSection,
+      Gallery,
     },
     computed: {
 
@@ -141,6 +143,26 @@
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 justify-items-center">
         <LandingBox v-for="cat in cats" :cat="cat" />
       </div>
+    </ContentFullSection>
+
+    <ContentFullSection
+      id="Projects"
+      name="projects"
+      title="Project Gallery"
+      containerClasses="container mx-auto px-5 pb-15"
+      backdropClasses=""
+      image=""
+      :button="false"
+    >
+      <Gallery
+        cols="4"
+        :images="[
+          { src: 'airworkscoolingsolutions.png', alt: 'Airworks Cooling Solutions' },
+          { src: 'scadasolutions.png', alt: 'SCADA Solutions' },
+          { src: 'atlasintegratedsystems.png', alt: 'Atlas Integrated Systems' },
+          { src: 'request-a-quote.png', alt: 'Request a Quote' },
+        ]"
+      />
     </ContentFullSection>
 
     <ContactSection />

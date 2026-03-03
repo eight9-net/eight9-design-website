@@ -164,7 +164,7 @@ import ContentFullSection from './ContentFullSection.vue';
         <h3 class="text-lg font-semibold text-base-content mb-1">
           <font-awesome-icon :icon="['fas', 'phone']" class="text-primary mr-1" /> Phone
         </h3>
-        <address class="not-italic">{{ siteProperties.contactPhoneFormatted }}</address>
+        <a :href="`tel:${siteProperties.contactPhone}`" class="not-italic">{{ siteProperties.contactPhoneFormatted }}</a>
       </div>
 
     </div>

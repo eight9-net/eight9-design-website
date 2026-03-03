@@ -1,55 +1,35 @@
-<style>
-
-</style>
-<script>
-  import NavLinks from '../components/NavLinks.vue';
-  import { mapGetters } from 'vuex'
-  export default {
-    name: 'site-footer',
-    components: {
-      NavLinks,
-    },
-    computed: {
-      ...mapGetters([
-        'get_site_info',
-      ]),
-      site() {
-        return this.get_site_info;
-      },
-      year() {
-        return new Date().getFullYear();
-      },
-    },
-  }
+<script setup>
+  import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+  const year = new Date().getFullYear();
 </script>
 <template>
-  <footer class="footer fixed-bottom bg-light py-3">
-    <!-- footer -->
-    <div class="container">
-      <div class="row">
+  <footer class="fixed bottom-0 left-0 right-0 w-full logo-bg border-t border-primary/20 shadow-md py-3 z-40 text-base-content/70 text-sm">
 
-        <div class="col-12 col-sm">
-          <div class="nav-item"><address class="m-0"><font-awesome-icon :icon="['fas', 'location-dot']" /> {{ site.address1 }} {{ site.address2 }}</address></div>
+    <div class="container mx-auto px-4">
+      <div class="flex flex-wrap">
+        <div class="w-full sm:flex-1">
+          <a :href="'tel:' + siteProperties.contactPhone" class="not-italic"><font-awesome-icon :icon="['fas', 'phone']" class="text-primary mr-1" /> {{ siteProperties.contactPhoneFormatted }}</a>
         </div>
-        <div class="col-12 col-sm-auto text-right">
-          <div class="nav-item"><a class="nav-link" :href="'mailto:' + site.email + '?subject=Website Inquiry'"><font-awesome-icon :icon="['fas', 'envelope']" size="lg" /> {{ site.email }}</a></div>
+        <div class="w-full sm:w-auto text-right">
+          <a class="link link-primary" :href="'mailto:' + siteProperties.contactEmail + '?subject=Website Inquiry'">
+            <font-awesome-icon :icon="['fas', 'envelope']" class="mr-1" /> {{ siteProperties.contactEmail }}
+          </a>
         </div>
       </div>
     </div>
 
-    <div class="footer-bottom">
-      <div class="container">
-        <div class="row">
-          <div class="col-12 col-sm">
-            <div class="nav-item">Copyright &copy; 2023-{{ year }} <span class="text-standout">Eight9 Design Network INC</span></div>
+    <div class="border-t border-base-content/10 mt-2 pt-2">
+      <div class="container mx-auto px-4">
+        <div class="flex flex-wrap">
+          <div class="w-full sm:flex-1">
+            Copyright &copy; 2023-{{ year }} <span class="text-primary font-medium">Eight9 Design Network INC</span>
           </div>
-          <div class="col-12 col-sm-auto text-right">
-            <div class="nav-item">Developed by <a class="misc-link" href="https://eight9.net/">Eight9 Design Network</a></div>
+          <div class="w-full sm:w-auto text-right">
+            Developed by <a class="link link-primary" href="https://eight9.net/">Eight9 Design Network</a>
           </div>
         </div>
       </div>
     </div>
 
   </footer>
-
 </template>

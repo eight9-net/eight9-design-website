@@ -1,0 +1,89 @@
+<script setup>
+  import { ref, computed, onMounted, onUnmounted } from 'vue';
+  import { useGetImageUrl } from '../composables/utils';
+  const props = defineProps({
+    title: {
+      type: String,
+      required: true,
+    },
+    subtitle: {
+      type: String,
+      required: false,
+    },
+    buttonText: {
+      type: String,
+      required: false,
+      default: 'Contact Us',
+    },
+    button: {
+      type: Boolean,
+      default: true,
+    },
+    imageBgClasses: {
+      type: String,
+      required: false,
+      default: 'absolute inset-0 bg-center bg-cover hero-overlay',
+    },
+  });
+
+  const heroImagesRef = [
+    'hero-bg-1.jpg',
+    // 'hero-bg-2.jpg',
+  ];
+
+  let intervalId = ref(null);
+  const currentHeroImageIdxRef = ref(0);
+  const currentHeroImageComputed = computed(() => {
+    return heroImagesRef[currentHeroImageIdxRef.value];
+  });
+
+  // On mounted, set up image rotation
+  onMounted(() => {
+    startImageRotation();
+  });
+
+  onUnmounted(() => {
+    if (intervalId.value) clearInterval(intervalId.value);
+  });
+
+  function startImageRotation() {
+    // Rotate hero image every 10 seconds
+    intervalId.value = setInterval(() => {
+      currentHeroImageIdxRef.value = (currentHeroImageIdxRef.value + 1) % heroImagesRef.length;
+    }, 5000);
+  }
+</script>
+<template>
+  <section class="hero">
+    <div
+      class="relative w-full min-h-160 overflow-hidden hero"
+      
+    >
+      <Transition name="fade"
+        enter-active-class="transition-opacity duration-500 ease-in"
+        leave-active-class="transition-opacity duration-500 ease-out"
+        enter-from-class="opacity-0"
+        leave-to-class="opacity-0"
+      >
+        <div
+          :key="currentHeroImageComputed"
+          :class="props.imageBgClasses"
+          :style="`background-image: url(${useGetImageUrl(currentHeroImageComputed)});`"
+        ></div>
+      </Transition>
+      <div class="absolute inset-0 bg-black opacity-40"></div>
+
+      <div class="text-center hero-content text-neutral-content">
+        <div class="w-full max-w-6xl mx-auto">
+          <h1 class="mb-5 text-2xl font-normal uppercase headline md:text-3xl">{{ props.title }}</h1>
+          <div class="my-6 mb-5 text-2xl font-light headline" v-if="props.subtitle">
+            {{ props.subtitle }}
+          </div>
+          <ContactButton classes="btn btn-soft btn-primary btn-lg my-4 border border-2 border-primary" v-if="props.button">
+            {{ props.buttonText }}
+          </ContactButton>
+        </div>
+      </div>
+    </div>
+  </section>
+</template>

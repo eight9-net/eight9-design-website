@@ -1,44 +1,53 @@
-<style>
-  .nav-item {
-    margin: 0.2em .5em;
-  }
-</style>
-<script>
-  import NavLinks from '../components/NavLinks.vue'
-  import { mapGetters } from 'vuex'
-  export default {
-    name: 'site-header',
-    components: {
-      NavLinks,
-    },
-    computed: {
-      ...mapGetters([
-        'get_site_info',
-      ]),
-      site() {
-        return this.get_site_info;
-      },
-    },
-  }
+<script setup>
+  import { ref } from 'vue';
+  import { useGetImageUrl } from '../composables/utils';
+  import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+  import NavigationMenu from './NavigationMenu.vue';
+  const isOpen = ref(false);
+  const toggleMobileNav = () => {
+    isOpen.value = !isOpen.value;
+  };
+  const handleCloseMenu = () => {
+    isOpen.value = false;
+    mobileMenuElement.value.removeAttribute('open');
+  };
+  const mobileMenuElement = ref(null);
 </script>
+
 <template>
-  <header class="">
-
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top sitehead">
-      <div class="container-fluid">
-        <a class="navbar-brand sitehead-brand" href="#">Eight9 Design Network</a>
-
-        <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu" aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle Navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse justify-content-center nav-sitehead" id="navbarMenu">
-          <NavLinks />
-        </div>
-
+  <header class="sticky top-0 z-50 header">
+    <div class="logo-bg border-b border-primary/20 shadow-md navbar">
+      <div class="navbar-start flex-2">
+        <details ref="mobileMenuElement" class="dropdown">
+          <summary class="btn btn-lg btn-ghost lg:hidden" @click="toggleMobileNav">
+            <font-awesome-icon :icon="['fa', 'bars']" size="lg" v-if="!isOpen" />
+            <font-awesome-icon :icon="['fa', 'times']" size="lg" v-if="isOpen" />
+          </summary>
+          <navigation-menu
+            classes="menu menu-compact text-lg dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-100 text-white font-medium"
+            :hover="false"
+            :border="false"
+            @emitCloseMenu="handleCloseMenu"
+            textSize="text-lg"
+          />
+        </details>
+        <router-link :to="{ name: 'home' }">
+          <img class="max-w-50 lg:max-w-75 mx-auto" :src="useGetImageUrl('eight9-design-network-logo.svg')" :alt="siteProperties.companyName" />
+        </router-link>
       </div>
-    </nav>
 
+      <div class="flex-auto hidden text-3xl navbar-center lg:flex">
+        <navigation-menu />
+      </div>
+
+      <div class="flex-1 ml-5 navbar-end mr-3">
+        <ContactButton />
+      </div>
+    </div>
   </header>
+</template>
 
-  </template>
+<style scoped>
+
+</style>
+

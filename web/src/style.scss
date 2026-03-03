@@ -1,0 +1,64 @@
+@use "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+Georgian:wght@100..900&display=swap');
+@plugin "daisyui" {
+  themes: business --default;
+  root: ":root";
+  logs: true;
+}
+/*
+  Logo palette:
+    background:  #0a0f1e → #0d1a2e  (deep navy)
+    primary:     #00d4ff              (logo cyan)
+    secondary:   #0077ff              (logo blue)
+    accent:      #00aaff              (logo text blue)
+*/
+@plugin "daisyui/theme" {
+  name: "business";
+  default: true;
+
+  /* Cyan from logo numeral gradient (#00d4ff) */
+  --color-primary: oklch(84% 0.178 200);
+  --color-primary-content: oklch(10% 0.025 258);
+
+  /* Blue from logo numeral gradient (#0077ff) */
+  --color-secondary: oklch(54% 0.228 265);
+  --color-secondary-content: oklch(95% 0.012 200);
+
+  /* Muted steel-blue from logo subtitle (#00aaff) */
+  --color-accent: oklch(71.5% 0.185 235);
+  --color-accent-content: oklch(41.5% 0.185 235);
+
+  /* Dark navy base matching logo background (#0d1a2e / #0a0f1e) */
+  --color-base-100: oklch(13% 0.030 258);
+  --color-base-200: oklch(10.5% 0.026 258);
+  --color-base-300: oklch(8% 0.022 258);
+  --color-base-content: oklch(88% 0.018 210);
+}
+
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Matches the logo's diagonal background gradient exactly */
+.logo-bg {
+  background: linear-gradient(135deg, #0a0f1e 0%, #0d1a2e 100%);
+}
+
+.fixed-bg {
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: fixed;
+  background-size: cover;
+}
+
+.headline {
+  font-family: 'Noto Serif Georgian', serif;
+  line-height: 1.5em;
+}
+
+.scroll-target {
+  position: absolute;
+  margin-top: -132px;
+  z-index: -1;
+}

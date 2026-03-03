@@ -1,10 +1,3 @@
-<style lang="scss">
-  .landing-box {
-    .icon-box {
-      min-height: 300px;
-    }
-  }
-</style>
 <script>
   export default {
     name: 'landing-box',
@@ -31,23 +24,34 @@
     },
     methods: {
       toggle_show() {
-        console.log('Clickity');
         this.show_more = !this.show_more;
       },
     },
   }
 </script>
 <template>
-  <div class="my-3 landing-box">
-    <div class="p-4 border border-gray-400 rounded-2xl text-center icon-box">
-      <div class="center-circle-icon"><font-awesome-icon :icon="['fas', cat.icon]" /></div>
-      <h4 class="title">{{ cat.title }}</h4>
-      <div class="description text-left">
-        <div v-for="item in show_items"><font-awesome-icon :icon="['fas', 'right-long']" />{{ item }}</div>
-        <div v-if="!show_more && total_items > 5"><a href="javascript://" @click="toggle_show">Show More</a></div>
-        <div v-else-if="show_more && total_items > 5"><a href="javascript://" @click="toggle_show">Show Less</a></div>
+  <div class="my-3">
+    <div class="card bg-base-200 border border-primary/20 rounded-2xl h-full min-h-75">
+      <div class="card-body text-center">
+        <div class="flex justify-center mb-3">
+          <div class="w-14 h-14 rounded-full bg-base-300 border border-primary/30 flex items-center justify-center text-primary text-2xl">
+            <font-awesome-icon :icon="['fas', cat.icon]" />
+          </div>
+        </div>
+        <h4 class="card-title justify-center text-base-content">{{ cat.title }}</h4>
+        <div class="text-left text-sm text-base-content/80 space-y-1 mt-2">
+          <div v-for="item in show_items" class="flex items-start gap-2">
+            <font-awesome-icon :icon="['fas', 'right-long']" class="text-primary mt-1 shrink-0 text-xs" />
+            <span>{{ item }}</span>
+          </div>
+          <div v-if="!show_more && total_items > 5" class="pt-1">
+            <a href="javascript://" @click="toggle_show" class="link link-primary text-sm">Show More</a>
+          </div>
+          <div v-else-if="show_more && total_items > 5" class="pt-1">
+            <a href="javascript://" @click="toggle_show" class="link link-primary text-sm">Show Less</a>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-
 </template>

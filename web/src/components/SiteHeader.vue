@@ -16,7 +16,7 @@
 
 <template>
   <header class="sticky top-0 z-50 header">
-    <div class="bg-gray-400 shadow-sm text-primary navbar">
+    <div class="logo-bg border-b border-primary/20 shadow-md navbar">
       <div class="navbar-start flex-2">
         <details ref="mobileMenuElement" class="dropdown">
           <summary class="btn btn-lg btn-ghost lg:hidden" @click="toggleMobileNav">

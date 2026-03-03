@@ -2,11 +2,17 @@
 
 </style>
 <script>
+  import HomeHero from '../components/HomeHero.vue';
+  import ContentFullSection from '../components/ContentFullSection.vue';
+  import ContentLeftSection from '../components/ContentLeftSection.vue';
   import LandingBox from '../components/LandingBox.vue';
   import ContactSection from '../components/ContactSection.vue';
   export default {
     name: 'landing-view',
     components: {
+      HomeHero,
+      ContentFullSection,
+      ContentLeftSection,
       LandingBox,
       ContactSection,
     },
@@ -99,21 +105,36 @@
 
 <template>
 
-  <div class="pb-12">
+  <div class="pb-12 bg-accent/5">
 
-    <section id="section-home" class="w-full hero-content">
-      <div class="text-center">
-        <h1>Quality Business Solutions</h1>
-      </div>
-    </section>
+    <HomeHero
+      id="home"
+      name="home"
+      title="Custom Web Design, Web Applications, & Cloud Services"
+    />
 
-    <section id="section-services" class="w-full services-content mt-12 mb-12 pb-12">
+    <ContentLeftSection
+      id="WhatWeDo"
+      name="what-we-do"
+      title="Services Tailored to Your Business Needs"
+      image="services-graphic.svg"
+      bgClasses="bg-contain bg-no-repeat"
+    >
+      <p>We build custom websites and web applications for businesses of all sizes. We specialize in custom web design, development, and hosting services. We also offer a wide range of off-the-shelf web applications that can be customized to fit your business needs.</p>
+    </ContentLeftSection>
+
+    <ContentFullSection
+      id="Services"
+      name="services"
+      title="Custom Web Design & Development Services"
+      containerClasses="container mx-auto px-5 py-25"
+    >
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6">
-        <Landing-box v-for="cat in cats" :cat="cat" />
+        <LandingBox v-for="cat in cats" :cat="cat" />
       </div>
-    </section>
+    </ContentFullSection>
 
-    <contact-section />
+    <ContactSection />
 
   </div>
 

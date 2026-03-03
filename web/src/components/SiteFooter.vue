@@ -8,7 +8,7 @@
     <div class="container mx-auto px-4">
       <div class="flex flex-wrap">
         <div class="w-full sm:flex-1">
-          <address class="not-italic"><font-awesome-icon :icon="['fas', 'location-dot']" class="text-accent mr-1" /> {{ siteProperties.companyAddress }}</address>
+          <a :href="'tel:' + siteProperties.contactPhone" class="not-italic"><font-awesome-icon :icon="['fas', 'phone']" class="text-primary mr-1" /> {{ siteProperties.contactPhoneFormatted }}</a>
         </div>
         <div class="w-full sm:w-auto text-right">
           <a class="link link-primary" :href="'mailto:' + siteProperties.contactEmail + '?subject=Website Inquiry'">

@@ -1,6 +1,7 @@
 <script setup>
   import { ref } from 'vue';
   import { useContactStore } from '../stores/contact';
+import ContentFullSection from './ContentFullSection.vue';
 
   const isDisabledRef = ref(false);
   const messageSentRef = ref(false);
@@ -25,60 +26,119 @@
 </script>
 
 <template>
-  <section id="section-contact" class="w-full mt-12 mb-12 pb-12">
+  <ContentFullSection
+    id="ContactUs"
+    name="contact-us"
+    title="Contact Us"
+  >
     <div>
+      
       <div class="text-center mb-8">
-        <h2 class="text-3xl font-bold text-base-content mb-3">Contact</h2>
-        <p class="text-base-content/70">Want more information? Not sure what your business needs? Have some ideas already and not sure where to start?</p>
-        <p class="text-base-content/70">We would love to talk about how we can help your business. Send us a message and start a conversation. Use the form below or E-Mail us at <a class="link link-primary" :href="'mailto:' + siteProperties.contactEmail + '?subject=Website%20Inquiry'">{{ siteProperties.contactEmail }}</a></p>
+        <p class="text-base-content/70 my-5">Want more information? Not sure what your business needs? Have some ideas already and not sure where to start?</p>
+        <p class="text-base-content/70 my-5">We would love to talk about how we can help your business. Send us a message and start a conversation. Use the form below or E-Mail us at <a class="link link-primary" :href="'mailto:' + siteProperties.contactEmail + '?subject=Website%20Inquiry'">{{ siteProperties.contactEmail }}</a></p>
       </div>
 
       <!-- contact form -->
-      <form @submit.prevent="sendContactForm" id="contact_form" class="mb-4" :class="{'hidden': messageSentRef, 'opacity-50 pointer-events-none': isDisabledRef}">
+      <form @submit.prevent="sendContactForm" id="contact_form" class="p-4 fieldset rounded-box text-base-content" :class="{'hidden': messageSentRef, 'opacity-50 pointer-events-none': isDisabledRef}">
         <input type="hidden" name="replyTo" :value="form.replyTo" />
         <input type="text" name="honeypot" class="sr-only" v-model="form.honeypot" />
 
-        <!-- Row 1: name / email / phone -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-          <label class="input input-bordered flex items-center gap-2 w-full" :class="{'input-error': form.dirty && !form.name_valid, 'input-success': form.dirty && form.name_valid && form.name}">
-            <font-awesome-icon :icon="['fas', 'user']" class="text-base-content/40 shrink-0" />
-            <input type="text" class="grow" name="contact_name" placeholder="Your Name" aria-label="Your Name" required v-model="form.name" />
-          </label>
-          <label class="input input-bordered flex items-center gap-2 w-full" :class="{'input-error': form.dirty && !form.email_valid, 'input-success': form.dirty && form.email_valid && form.email}">
-            <font-awesome-icon :icon="['fas', 'at']" class="text-base-content/40 shrink-0" />
-            <input type="email" class="grow" name="contact_email" placeholder="E-Mail Address" aria-label="E-Mail Address" required v-model="form.email" />
-          </label>
-          <label class="input input-bordered flex items-center gap-2 w-full">
-            <font-awesome-icon :icon="['fas', 'phone']" class="text-base-content/40 shrink-0" />
-            <input type="tel" class="grow" name="contact_phone" placeholder="Phone" aria-label="Phone" v-model="form.phone" />
-          </label>
+        <div class="flex gap-4">
+          <fieldset class="fieldset flex-3">
+            <label class="w-full input validator">
+              <input
+                type="text"
+                required
+                name="name"
+                placeholder="Contact Name"
+                minlength="1"
+                maxlength="50"
+                v-model="form.name"
+              />
+            </label>
+          </fieldset>
+
+          <fieldset class="fieldset flex-3">
+            <label class="w-full input validator">
+              <input
+                type="text"
+                name="title"
+                placeholder="Title"
+                minlength="1"
+                maxlength="50"
+                v-model="form.title"
+              />
+            </label>
+          </fieldset>
         </div>
 
-        <!-- Subject -->
-        <label class="input input-bordered flex items-center gap-2 w-full mb-4" :class="{'input-error': form.dirty && !form.subject_valid, 'input-success': form.dirty && form.subject_valid && form.subject}">
-          <font-awesome-icon :icon="['fas', 'question']" class="text-base-content/40 shrink-0" />
-          <input type="text" class="grow" name="contact_subject" placeholder="Subject" aria-label="Subject" required v-model="form.subject" />
-        </label>
+        <div class="flex gap-4">
+          <fieldset class="fieldset flex-3">
+            <label class="w-full input validator">
+              <FontAwesomeIcon :icon="['fas', 'phone']" class="icon" />
+              <input
+                type="tel"
+                class="tabular-nums"
+                required
+                placeholder="Phone"
+                minlength="10"
+                maxlength="15"
+                v-model="form.phone"
+              />
+            </label>
+            <p class="hidden validator-hint">Must be at least 10 digits</p>
+          </fieldset>
 
-        <!-- Message -->
-        <div class="mb-4">
-          <textarea
-            class="textarea textarea-bordered w-full"
-            :class="{'textarea-error': form.dirty && !form.message_valid, 'textarea-success': form.dirty && form.message_valid && form.message}"
-            placeholder="Your Message"
-            aria-label="Your Message"
-            required
-            v-model="form.message"
-            rows="10"
-          ></textarea>
+          <fieldset class="fieldset flex-3">
+            <label class="w-full input validator">
+              <FontAwesomeIcon :icon="['fas', 'envelope']" class="icon" />
+              <input type="email" placeholder="Email" required v-model="form.email" />
+            </label>
+            <div class="hidden validator-hint">Enter valid email address</div>
+          </fieldset>
         </div>
 
-        <div>
-          <button type="submit" class="btn btn-primary" :disabled="isDisabledRef">
-            <font-awesome-icon :icon="['fas', 'envelope']" class="mr-1" /> Contact Us
-          </button>
+        <div class="flex gap-4">
+          <fieldset class="fieldset flex-3">
+            <label class="w-full input validator">
+              <input
+                type="text"
+                required
+                name="subject"
+                placeholder="Subject"
+                minlength="1"
+                maxlength="150"
+                v-model="form.subject"
+              />
+            </label>
+            <div class="hidden validator-hint">Subject is required</div>
+          </fieldset>
+          <fieldset class="fieldset flex-3">
+            <label class="w-full input validator">
+              <input
+                type="text"
+                name="company"
+                placeholder="Company Name"
+                minlength="1"
+                maxlength="150"
+                v-model="form.company"
+              />
+            </label>
+          </fieldset>
         </div>
-      </form><!-- end contact form -->
+
+        <div class="hidden"><input type="text" name="is_valid" v-model="form.is_valid"/></div>
+
+
+        <div class="flex gap-4">
+          <fieldset class="fieldset flex-3">
+            <textarea id="contact_message" class="w-full textarea" placeholder="Message" v-model="form.message" rows="5" required></textarea>
+            <div class="hidden validator-hint">Message is required</div>
+          </fieldset>
+        </div>
+
+        <button type="submit" class="my-4 btn btn-primary" :class="{disabled: isDisabledRef}" :disabled="isDisabledRef">Send Message</button>
+      </form>
 
       <div v-if="messageSentRef" class="alert alert-success my-4">
         <p>Thank you for contacting us! We have received your message and will get back to you shortly.</p>
@@ -95,9 +155,15 @@
         <address class="not-italic">{{ siteProperties.companyAddress }}</address>
       </div>
 
-    </div>
-  </section>
+      <!-- Phone -->
+      <div class="mt-6 text-center text-base-content/70">
+        <h3 class="text-lg font-semibold text-base-content mb-1">
+          <font-awesome-icon :icon="['fas', 'phone']" class="text-primary mr-1" /> Phone
+        </h3>
+        <address class="not-italic">{{ siteProperties.contactPhoneFormatted }}</address>
+      </div>
 
-  <div id="contact" class="relative pb-20"></div>
+    </div>
+  </ContentFullSection>
 
 </template>

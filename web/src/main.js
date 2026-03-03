@@ -50,5 +50,5 @@ app.component('ContentFullSection', ContentFullSection);
 app.component('ContactButton', ContactButton);
 
 app.use(router)
-app.component('font-awesome-icon', FontAwesomeIcon)
+app.component('FontAwesomeIcon', FontAwesomeIcon)
 app.mount('#app')

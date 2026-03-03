@@ -1,33 +1,27 @@
-<script>
-  export default {
-    name: 'landing-box',
-    props: [
-      'cat',
-    ],
-    data() {
-      return {
-        show_more: false,
-      }
-    },
-    computed: {
-      total_items() {
-        return this.cat.items.length;
-      },
-      show_items() {
-        let items = [];
-        let max = this.show_more ? this.total_items : 5;
-        for (let i = 0; i < max; i++) {
-          items.push(this.cat.items[i]);
-        }
-        return items;
-      },
-    },
-    methods: {
-      toggle_show() {
-        this.show_more = !this.show_more;
-      },
-    },
-  }
+<script setup>
+import { computed, ref } from 'vue';
+
+const props = defineProps({
+  cat: {
+    type: Object,
+    required: true,
+  },
+});
+
+const show_more = ref(false);
+
+const total_items = computed(() => {
+  return props.cat?.items?.length ?? 0;
+});
+
+const show_items = computed(() => {
+  const max = show_more.value ? total_items.value : 5;
+  return props.cat?.items?.slice(0, max) ?? [];
+});
+
+const toggle_show = () => {
+  show_more.value = !show_more.value;
+};
 </script>
 <template>
   <div class="my-3">

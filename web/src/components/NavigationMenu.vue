@@ -23,26 +23,6 @@
   });
 
 
-  const links = shallowRef({
-    home: [
-    ],
-    projects: [
-      { name: 'projects', hash: '#SanDiegoPureWaterProject', title: 'City of San Diego Pure Water Project' },
-      { name: 'projects', hash: '#LawaiSolarProject', title: 'AES-KIUC Lāwaʻi Solar Project' },
-      { name: 'projects', hash: '#PMRFPowerGridProject', title: 'FY16 MCON Project P-416 Energy PMRF Power Grid Consolidation' },
-      { name: 'projects', hash: '#RialtoBioEnergyProject', title: 'Rialto Bio Energy Facility' },
-      { name: 'projects', hash: '#CampPendletonDataCenterProject', title: 'Camp Pendleton Data Center' },
-    ],
-    services: [
-      { name: 'services', hash: '#CommunicationsSystemsDesign', title: 'Communications Systems Design' },
-      { name: 'services', hash: '#CommunicationsSystemsTroubleshooting', title: 'Communications Systems Troubleshooting' },
-      { name: 'services', hash: '#BackboneInfrastructure', title: 'Configuration & Installation of Backbone Infrastructure' },
-      { name: 'services', hash: '#EnhancedAccessSecurity', title: 'Enhanced Access Security' },
-    ],
-    contact: [
-    ],
-  });
-
   const isHorizontal = shallowRef(props.classes.includes('menu-horizontal'));
 
   const emit = defineEmits(['emitCloseMenu']);
@@ -64,6 +44,7 @@
   <ul :class="props.classes">
     <a href="javascript://" @click="goto({ name: 'home' })" :class="`${props.textSize} py-1.5 px-3 rounded-md font-medium hover:text-accent active:text-accent transition-colors`"><font-awesome-icon :icon="['fas', 'house']" /> Home</a>
     <a href="javascript://" @click="goto({ name: 'home', hash: '#Services' })" :class="`${props.textSize} py-1.5 px-3 rounded-md font-medium hover:text-accent active:text-accent transition-colors`"><font-awesome-icon :icon="['fas', 'camera-retro']" /> Services</a>
+    <a href="javascript://" @click="goto({ name: 'home', hash: '#Projects' })" :class="`${props.textSize} py-1.5 px-3 rounded-md font-medium hover:text-accent active:text-accent transition-colors`"><font-awesome-icon :icon="['fas', 'compass-drafting']" /> Projects</a>
     <a href="javascript://" @click="goto({ name: 'home', hash: '#ContactUs' })" :class="`${props.textSize} py-1.5 px-3 rounded-md font-medium hover:text-accent active:text-accent transition-colors`"><font-awesome-icon :icon="['fas', 'envelope']" /> Contact</a>
   </ul>
 </template>

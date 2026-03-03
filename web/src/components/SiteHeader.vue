@@ -24,7 +24,7 @@
             <font-awesome-icon :icon="['fa', 'times']" size="lg" v-if="isOpen" />
           </summary>
           <navigation-menu
-            classes="menu menu-compact text-lg dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-100 text-black font-medium"
+            classes="menu menu-compact text-lg dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-100 text-white font-medium"
             :hover="false"
             :border="false"
             @emitCloseMenu="handleCloseMenu"

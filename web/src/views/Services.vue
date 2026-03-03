@@ -2,48 +2,52 @@
 
 </style>
 
-<script>
-  export default {
-    name: 'contact-view',
-    components: {
-    },
-    data () {
-      return {
-        form: {
-          name: '',
-          email: '',
-          subject: '',
-          message: '',
-        },
-        status: 'pending',
-        disabled: false,
-      }
-    },
-    methods: {
-      ...mapActions([
-        'do_submit_contact',
-      ]),
-      submit() {
-        let $this = this;
-        if (!this.form.name || !this.form.email || !this.form.subject || !this.form.message) {
-          this.status = 'missing';
-          return false;
-        }
-        this.status = 'sending';
-        this.disabled = true;
-        this.do_submit_contact(this.form)
-          .then(function(res) {
-            $this.$set($this, 'status', 'success');
-            this.status = 'success';
-          }).finally(function() {
-            
-          }).catch(function(err) {
-            this.status = 'error';
-            this.disabled = false;
-          });
-      }
-    },
+<script setup>
+import { computed, inject, reactive, ref } from 'vue';
+import { useContactStore } from '../stores/contact';
+
+const contactStore = useContactStore();
+const siteProperties = inject('siteProperties', {});
+
+const form = reactive({
+  name: '',
+  email: '',
+  subject: '',
+  message: '',
+});
+
+const status = ref('pending');
+const disabled = ref(false);
+
+const site = computed(() => {
+  return {
+    phone: siteProperties?.contactPhone ?? '',
+    address1: siteProperties?.companyAddress ?? '',
+    address2: '',
+    email: siteProperties?.contactEmail ?? '',
+    website: 'https://eight9.net',
+  };
+});
+
+const submit = async () => {
+  if (!form.name || !form.email || !form.subject || !form.message) {
+    status.value = 'missing';
+    return false;
   }
+
+  status.value = 'sending';
+  disabled.value = true;
+
+  try {
+    const sent = await contactStore.doSendContactForm(form);
+    status.value = sent ? 'success' : 'error';
+  } catch (err) {
+    status.value = 'error';
+    disabled.value = false;
+  }
+
+  return true;
+};
 </script>
 
 <template>

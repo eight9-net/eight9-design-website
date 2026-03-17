@@ -21,6 +21,10 @@ npm run preview  # Preview the production build locally
 
 There are no tests or linting scripts configured.
 
+## Deployment
+
+Pushing to `master` automatically triggers the GitHub Actions workflow (`.github/workflows/deploy.yml`), which runs `npm run build` in `web/` and deploys `web/dist/` to GitHub Pages. No manual deploy step is needed.
+
 ## Architecture
 
 ### Web (`web/`)

@@ -4,7 +4,73 @@ import ContentFullSection from '../components/ContentFullSection.vue';
 import ContentLeftSection from '../components/ContentLeftSection.vue';
 import LandingBox from '../components/LandingBox.vue';
 import ContactSection from '../components/ContactSection.vue';
-import Gallery from '../components/Gallery.vue';
+import PortfolioCard from '../components/PortfolioCard.vue';
+
+const projects = [
+  {
+    icon: 'lock',
+    industry: 'EdTech SaaS',
+    title: 'Centralized Authentication Service',
+    description: 'Architected a new authentication service using an Open Source backend solution and highly customized frontend for a multi-tenant SaaS platform and accompanying microservices.',
+    tags: ['Zitadel', 'React', 'Next.js', 'PostgreSQL', 'AWS ECS', 'Terraform', 'SSO', 'OAuth2', 'OpenID', 'SAML', 'MFA'],
+  },
+  {
+    icon: 'cloud',
+    industry: 'EdTech SaaS',
+    title: 'Monolith Cloud Migration',
+    description: 'Planned and led the cloud migration of a legacy monolith including several critical microservices to a multi-account (Dev,Stage,Prod) AWS architecture utilizing Ansible, Packer, and Terraform.',
+    tags: ['PHP', 'Javascript', 'PostgreSQL', 'RabbitMQ', 'AWS EC2', 'AWS ECS', 'Terraform', 'Elasticsearch', 'NPM', 'Ansible', 'Packer', 'GitHub Actions', 'GitHub Self Hosted Runners', 'DataDog'],
+  },
+  {
+    icon: 'compass-drafting',
+    industry: 'EdTech SaaS',
+    title: 'Dynamic Form Builder',
+    description: 'Designed and created a Dynamic Form Building / Administration platform utilizing the open-source VueForm.js library. Implemented a custom GoLang backend for form storage and submission handling. Forms included complex conditional logic, multiple-steps, and signature inputs.',
+    tags: ['GoLang', 'Vue.js', 'VueForm.js', 'PostgreSQL', 'Heroku'],
+  },
+  {
+    icon: 'bolt-lightning',
+    industry: 'Clean Energy',
+    title: 'Renewable Energy Analytics Platform',
+    description: 'Built a real-time monitoring dashboard for multi-vendor solar and wind turbine analytics with anomaly detection and multi-channel alerting (SMS, Push, Slack). Integrated YOLO-based AI computer vision for security monitoring and TimeScaleDB for high-frequency sensor data.',
+    tags: ['PHP', 'Python', 'Node.js', 'TimeScaleDB', 'PostGIS', 'Vue.js', 'AWS', 'OpenCV', 'YOLO', 'AI', 'Queueing Systems', 'SMA', 'SunGrow', 'eGauge'],
+  },
+  {
+    icon: 'book',
+    industry: 'EdTech SaaS',
+    title: 'High-Scale Student Testing Platform',
+    description: 'Architected and led a 5 person engineering team delivering a standardized testing platform serving 25k–30k concurrent students at 150ms average response time. Implemented caching strategies and queueing mechanisms to sustain throughput at peak load and offload heavy processing tasks.',
+    tags: ['PHP', 'MongoDB', 'PostgreSQL', 'Redis', 'Vue.js', 'AWS', 'Team Leadership'],
+  },
+  {
+    icon: 'display',
+    industry: 'AdTech',
+    title: 'Advertising Analytics & Reporting Platform',
+    description: 'Built multi-source ad data aggregation and reporting with serverless AWS Lambda pipelines, real-time Vue.js dashboards, and location-based analytics via PostGIS. Optimized complex PostgreSQL queries to dramatically improve report generation time.',
+    tags: ['PHP', 'Node.js', 'PostgreSQL', 'PostGIS', 'Vue.js', 'AWS Lambda', 'Docker'],
+  },
+  {
+    icon: 'atom',
+    industry: 'Blockchain',
+    title: 'Blockchain Validator Infrastructure',
+    description: 'Deployed and automated a bare-metal server fleet in a traditional datacenter for Onomy Protocol validator nodes. Built custom provisioning tooling and a comprehensive monitoring system for validator node health and chain status.',
+    tags: ['Node.js', 'Bash', 'Docker', 'Nginx', 'Libvirt', 'Blockchain', 'Onomy Protocol', 'Cosmos', 'Validator Nodes', 'Monitoring'],
+  },
+  {
+    icon: 'screwdriver-wrench',
+    industry: 'Infrastructure',
+    title: 'Mining Operations Monitoring & Alerting',
+    description: 'Built an ELK-stack monitoring and reporting dashboard for large-scale cryptocurrency mining operations. Developed a RabbitMQ-driven automated alerting system integrated with third-party APIs for real-time incident notification.',
+    tags: ['Go', 'Python', 'Elasticsearch', 'RabbitMQ', 'Docker', 'AWS', 'CloudFormation'],
+  },
+  {
+    icon: 'store',
+    industry: 'Business Services',
+    title: 'Custom Website Development',
+    description: 'Designed and developed custom websites and web applications tailored to client needs. Everything from initial concept design and branding to final deployment and ongoing maintenance. Static or Dynamic websites including CMS and E-Commerce solutions.',
+    tags: ['Web Design', 'HTML', 'CSS', 'Javascript', 'E-Commerce', 'Domain & Hosting', 'Maintenance'],
+  }
+];
 
 const cats = [
   {
@@ -106,7 +172,7 @@ const cats = [
       id="WhatWeDo"
       name="what-we-do"
       title="Services Tailored to Your Business Needs"
-      image="services-graphic.svg"
+      image="services-graphic-wide.svg"
       bgClasses="bg-contain bg-no-repeat"
     >
       <p>We build custom websites and web applications for businesses of all sizes. We specialize in custom web design, development, and hosting services. We also offer a wide range of off-the-shelf web applications that can be customized to fit your business needs.</p>
@@ -128,21 +194,15 @@ const cats = [
     <ContentFullSection
       id="Projects"
       name="projects"
-      title="Project Gallery"
+      title="Portfolio"
       containerClasses="container mx-auto px-5 pb-15"
       backdropClasses=""
       image=""
       :button="false"
     >
-      <Gallery
-        cols="4"
-        :images="[
-          { src: 'airworkscoolingsolutions.png', alt: 'Airworks Cooling Solutions' },
-          { src: 'scadasolutions.png', alt: 'SCADA Solutions' },
-          { src: 'atlasintegratedsystems.png', alt: 'Atlas Integrated Systems' },
-          { src: 'request-a-quote.png', alt: 'Request a Quote' },
-        ]"
-      />
+      <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 justify-items-stretch">
+        <PortfolioCard v-for="project in projects" :key="project.title" :project="project" />
+      </div>
     </ContentFullSection>
 
     <ContactSection />

@@ -106,7 +106,7 @@ const cats = [
       id="WhatWeDo"
       name="what-we-do"
       title="Services Tailored to Your Business Needs"
-      image="services-graphic-sq.svg"
+      image="services-graphic.svg"
       bgClasses="bg-contain bg-no-repeat"
     >
       <p>We build custom websites and web applications for businesses of all sizes. We specialize in custom web design, development, and hosting services. We also offer a wide range of off-the-shelf web applications that can be customized to fit your business needs.</p>
@@ -120,7 +120,7 @@ const cats = [
       sectionClasses="mt-10 pt-10"
       image=""
     >
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 justify-items-center">
+      <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 justify-items-center">
         <LandingBox v-for="cat in cats" :cat="cat" />
       </div>
     </ContentFullSection>

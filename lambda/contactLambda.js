@@ -18,12 +18,12 @@ let app_cfg = {
     company: 'Microgrid Asset Management',
   },
   'atlas': {
-    sender: 'info@eight9.net',
+    sender: 'info@atlasintegratedsystems.com',
     title: 'Atlas Integrated Systems Contact Form',
     company: 'Atlas Integrated Systems',
   },
   'scada': {
-    sender: 'info@eight9.net',
+    sender: 'info@scadasolutions.com',
     title: 'SCADA Solutions Contact Form',
     company: 'SCADA Solutions',
   },

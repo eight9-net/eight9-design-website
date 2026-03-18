@@ -44,7 +44,7 @@
   <ul :class="props.classes">
     <a href="javascript://" @click="goto({ name: 'home' })" :class="`${props.textSize} py-1.5 px-3 rounded-md font-medium hover:text-accent active:text-accent transition-colors`"><font-awesome-icon :icon="['fas', 'house']" /> Home</a>
     <a href="javascript://" @click="goto({ name: 'home', hash: '#Services' })" :class="`${props.textSize} py-1.5 px-3 rounded-md font-medium hover:text-accent active:text-accent transition-colors`"><font-awesome-icon :icon="['fas', 'camera-retro']" /> Services</a>
-    <a href="javascript://" @click="goto({ name: 'home', hash: '#Projects' })" :class="`${props.textSize} py-1.5 px-3 rounded-md font-medium hover:text-accent active:text-accent transition-colors`"><font-awesome-icon :icon="['fas', 'compass-drafting']" /> Projects</a>
+    <a href="javascript://" @click="goto({ name: 'home', hash: '#Portfolio' })" :class="`${props.textSize} py-1.5 px-3 rounded-md font-medium hover:text-accent active:text-accent transition-colors`"><font-awesome-icon :icon="['fas', 'compass-drafting']" /> Portfolio</a>
     <a href="javascript://" @click="goto({ name: 'home', hash: '#ContactUs' })" :class="`${props.textSize} py-1.5 px-3 rounded-md font-medium hover:text-accent active:text-accent transition-colors`"><font-awesome-icon :icon="['fas', 'envelope']" /> Contact</a>
   </ul>
 </template>

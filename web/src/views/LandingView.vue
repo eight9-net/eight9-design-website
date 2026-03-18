@@ -9,21 +9,21 @@ import PortfolioCard from '../components/PortfolioCard.vue';
 const projects = [
   {
     icon: 'lock',
-    industry: 'EdTech SaaS',
+    industry: 'Identity & Auth',
     title: 'Centralized Authentication Service',
     description: 'Architected a new authentication service using an Open Source backend solution and highly customized frontend for a multi-tenant SaaS platform and accompanying microservices.',
     tags: ['Zitadel', 'React', 'Next.js', 'PostgreSQL', 'AWS ECS', 'Terraform', 'SSO', 'OAuth2', 'OpenID', 'SAML', 'MFA'],
   },
   {
     icon: 'cloud',
-    industry: 'EdTech SaaS',
+    industry: 'SaaS Platform',
     title: 'Monolith Cloud Migration',
     description: 'Planned and led the cloud migration of a legacy monolith including several critical microservices to a multi-account (Dev,Stage,Prod) AWS architecture utilizing Ansible, Packer, and Terraform.',
-    tags: ['PHP', 'Javascript', 'PostgreSQL', 'RabbitMQ', 'AWS EC2', 'AWS ECS', 'Terraform', 'Elasticsearch', 'NPM', 'Ansible', 'Packer', 'GitHub Actions', 'GitHub Self Hosted Runners', 'DataDog'],
+    tags: ['PHP', 'Javascript', 'PostgreSQL', 'RabbitMQ', 'AWS IAM', 'AWS EC2', 'AWS ECS', 'Terraform', 'Elasticsearch', 'NPM', 'Ansible', 'Packer', 'GitHub Actions', 'GitHub Self Hosted Runners', 'DataDog'],
   },
   {
     icon: 'compass-drafting',
-    industry: 'EdTech SaaS',
+    industry: 'SaaS Platform',
     title: 'Dynamic Form Builder',
     description: 'Designed and created a Dynamic Form Building / Administration platform utilizing the open-source VueForm.js library. Implemented a custom GoLang backend for form storage and submission handling. Forms included complex conditional logic, multiple-steps, and signature inputs.',
     tags: ['GoLang', 'Vue.js', 'VueForm.js', 'PostgreSQL', 'Heroku'],
@@ -65,10 +65,10 @@ const projects = [
   },
   {
     icon: 'store',
-    industry: 'Business Services',
-    title: 'Custom Website Development',
-    description: 'Designed and developed custom websites and web applications tailored to client needs. Everything from initial concept design and branding to final deployment and ongoing maintenance. Static or Dynamic websites including CMS and E-Commerce solutions.',
-    tags: ['Web Design', 'HTML', 'CSS', 'Javascript', 'E-Commerce', 'Domain & Hosting', 'Maintenance'],
+    industry: 'Web Design & Development',
+    title: 'Client Website Portfolio',
+    description: 'Designed and delivered many custom websites and web applications for business clients — from initial concept and branding through deployment and ongoing maintenance. Includes static sites, CMS-driven content, and e-commerce builds.',
+    tags: ['Web Design', 'HTML', 'CSS', 'Javascript', 'WordPress', 'WooCommerce', 'E-Commerce', 'Domain & Hosting'],
   }
 ];
 
@@ -192,8 +192,9 @@ const cats = [
     </ContentFullSection>
 
     <ContentFullSection
-      id="Projects"
-      name="projects"
+      id="Portfolio"
+      name="portfolio"
+      preTitle="Enterprise-grade, delivered"
       title="Portfolio"
       containerClasses="container mx-auto px-5 pb-15"
       backdropClasses=""
